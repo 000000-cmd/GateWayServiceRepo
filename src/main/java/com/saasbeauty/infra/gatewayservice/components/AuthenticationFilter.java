@@ -49,7 +49,7 @@ public class AuthenticationFilter implements GatewayFilter {
         if (esPrivada) {
             // Si entra aquí, el Gateway está exigiendo token
             System.out.println(">>> Validando Token para ruta protegida...");
-            if (!request.getHeaders().containsKey("Authorization")) {
+            if (!request.getHeaders().containsHeader("Authorization")) {
                 System.out.println(">>> ERROR: No hay header Authorization");
                 return this.onError(exchange, "Authorization header is missing", HttpStatus.UNAUTHORIZED);
             }

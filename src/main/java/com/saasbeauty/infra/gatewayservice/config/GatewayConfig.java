@@ -16,17 +16,36 @@ public class GatewayConfig {
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("auth-service", r -> r.path("/api/auth/**", "/api/users/**", "/api/lists/roles/**")
+                .route("auth-service", r -> r.path(
+                                "/api/auth/**",
+                                "/api/users/**",
+                                "/api/lists/roles/**"
+                        )
                         .filters(f -> f.filter(authenticationFilter))
                         .uri("lb://auth-service"))
 
-                .route("location-service", r -> r.path("/api/locations/**")
+                .route("location-service", r -> r.path(
+                                "/api/locations/**"
+                        )
                         .filters(f -> f.filter(authenticationFilter))
                         .uri("lb://location-service"))
 
-                .route("thirdparty-service", r -> r.path("/api/thirdparties/**", "/api/lists/document-types/**", "/api/lists/gender-types/**")
+                .route("thirdparty-service", r -> r.path(
+                                "/api/thirdparties/**",
+                                "/api/lists/document-types/**",
+                                "/api/lists/gender-types/**"
+                        )
                         .filters(f -> f.filter(authenticationFilter))
                         .uri("lb://thirdparty-service"))
+
+                .route("system-service", r -> r.path(
+                                "/api/system/**",
+                                "/api/catalogs/**",
+                                "/api/notifications/**",
+                                "/api/permissions/**"
+                        )
+                        .filters(f -> f.filter(authenticationFilter))
+                        .uri("lb://system-service"))
 
                 .build();
     }
